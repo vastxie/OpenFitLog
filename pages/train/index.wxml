@@ -1,0 +1,175 @@
+<view class="page grouped" style="{{themeStyle}}">
+  <!-- 日历：点月份展开整月，左右滑或点箭头翻页 -->
+  <view class="card cal">
+    <view bindtouchstart="onCalTouchStart" bindtouchend="onCalTouchEnd">
+      <view class="cal-head">
+        <view class="cal-month tap-fx" bindtap="toggleCalMode" hover-class="pressed" hover-stay-time="80">
+          <text>{{calTitle}}</text>
+          <view class="cal-fold {{calMode === 'month' ? 'open' : ''}} i i-chevron-down" />
+        </view>
+        <view class="cal-nav">
+          <text wx:if="{{selectedDate !== todayStr}}" class="cal-today" bindtap="goToday">今天</text>
+          <view class="cal-arrow tap-fx" bindtap="prevPeriod" hover-class="pressed" hover-stay-time="80">
+            <view class="cal-arrow-ic i i-chevron-left" />
+          </view>
+          <view class="cal-arrow tap-fx" bindtap="nextPeriod" hover-class="pressed" hover-stay-time="80">
+            <view class="cal-arrow-ic i i-chevron-next" />
+          </view>
+        </view>
+      </view>
+
+      <view class="cal-grid cal-week">
+        <text wx:for="{{['一', '二', '三', '四', '五', '六', '日']}}" wx:key="*this">{{item}}</text>
+      </view>
+    </view>
+
+    <swiper
+      class="cal-swiper"
+      style="height: {{calSwiperHeight}}rpx;"
+      circular
+      current="{{calCurrent}}"
+      duration="240"
+      bindchange="onCalSwiperChange"
+    >
+      <swiper-item wx:for="{{calSlides}}" wx:key="idx" wx:for-item="slide">
+        <view class="cal-grid {{slide.idx === calCurrent ? calAnimCls : ''}}">
+          <view class="cal-cell" wx:for="{{slide.days}}" wx:key="dateStr" data-date="{{item.dateStr}}" bindtap="selectDate">
+            <view class="cal-day num {{item.isSelected ? 'on' : ''}} {{item.isToday ? 'today' : ''}} {{item.inMonth ? '' : 'out'}}">
+              {{item.dayNum}}
+            </view>
+            <view class="cal-dot {{item.isTrained ? 'show' : ''}}"></view>
+          </view>
+        </view>
+      </swiper-item>
+    </swiper>
+  </view>
+
+  <view class="day-head">
+    <text class="day-title">{{dayTitle}}</text>
+    <text wx:if="{{selectedDate === todayStr}}" class="day-today">今天</text>
+    <text wx:if="{{weekText}}" class="day-week num">{{weekText}}</text>
+  </view>
+
+  <!-- 当天的训练记录 -->
+  <view class="ses tap-fx" wx:for="{{sessionCards}}" wx:key="id" data-id="{{item.id}}" bindtap="onCardTap" hover-class="pressed" hover-stay-time="80">
+    <view class="ses-top">
+      <text class="ses-title ellipsis">{{item.title}}</text>
+      <view class="chev i i-chevron-right" />
+    </view>
+    <text class="meta num">{{item.metaText}}</text>
+    <view class="ex-list" wx:if="{{item.items.length > 0}}">
+      <view class="ex-line {{ex.done ? '' : 'todo'}}" wx:for="{{item.items}}" wx:for-item="ex" wx:key="key">
+        <view class="part ex-part"><view class="part-ic i i-part-{{ex.part}}" /></view>
+        <text class="ex-name ellipsis">{{ex.name}}</text>
+        <text class="ex-val num">{{ex.right}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 旧版的拉伸/有氧单条记录 -->
+  <view class="row tap xrow" wx:for="{{extraRows}}" wx:key="id" data-id="{{item.id}}" bindtap="onExtraTap" hover-class="pressed" hover-stay-time="80">
+    <view class="row-main">
+      <text class="row-title ellipsis">{{item.title}}</text>
+      <text wx:if="{{item.meta}}" class="meta ellipsis">{{item.meta}}</text>
+    </view>
+    <text class="row-val num">{{item.side}}</text>
+  </view>
+
+  <!-- 这天排了计划但还没练 -->
+  <view wx:if="{{planPreview}}" class="ses tap-fx" bindtap="onPreviewTap" hover-class="pressed" hover-stay-time="80">
+    <view class="ses-top">
+      <text class="ses-title ellipsis">{{planPreview.name}}</text>
+      <view class="chev i i-chevron-right" />
+    </view>
+    <text class="meta num">{{planPreview.metaText}}</text>
+    <view class="ex-list">
+      <view class="ex-line" wx:for="{{planPreview.items}}" wx:for-item="ex" wx:key="key">
+        <view class="part ex-part"><view class="part-ic i i-part-{{ex.part}}" /></view>
+        <text class="ex-name ellipsis">{{ex.name}}</text>
+        <text class="ex-val num">{{ex.right}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{emptyText}}" class="none">
+    <text>{{emptyText}}</text>
+    <text wx:if="{{nextText}}" class="meta none-sub">{{nextText}}</text>
+    <text wx:elif="{{!hasAnyPlan && selectedDate >= todayStr}}" class="none-link" bindtap="goPlanWizard">去定制训练计划</text>
+  </view>
+
+  <block wx:if="{{dockMode}}">
+    <view class="dock-space in-tab"></view>
+    <view class="dock in-tab">
+      <view wx:if="{{dockMode === 'resume'}}" class="btn" bindtap="onResume" hover-class="pressed" hover-stay-time="80">继续训练</view>
+      <block wx:elif="{{dockMode === 'plan'}}">
+        <view class="btn ghost narrow" bindtap="openStartSheet" hover-class="pressed" hover-stay-time="80">换个训练</view>
+        <view class="btn" bindtap="startTodayPlan" hover-class="pressed" hover-stay-time="80">开始训练</view>
+      </block>
+      <view wx:elif="{{dockMode === 'start'}}" class="btn" bindtap="openStartSheet" hover-class="pressed" hover-stay-time="80">开始训练</view>
+      <view wx:elif="{{dockMode === 'again'}}" class="btn ghost" bindtap="openStartSheet" hover-class="pressed" hover-stay-time="80">加练一场</view>
+      <view wx:elif="{{dockMode === 'past'}}" class="btn ghost" bindtap="openStartSheet" hover-class="pressed" hover-stay-time="80">补记训练</view>
+    </view>
+  </block>
+
+  <!-- 选择练什么 -->
+  <view class="sheet-mask {{sheetOut ? 'out' : ''}}" wx:if="{{showStart}}" catchtouchmove="noop" bindtap="closeStart">
+    <view class="sheet in-tab" catchtap="noop">
+      <view class="sheet-head">
+        <text class="sheet-title">{{sheetTitle}}</text>
+        <text class="sheet-action" bindtap="closeStart">取消</text>
+      </view>
+      <scroll-view scroll-y class="start-list">
+        <view class="row tap" data-id="" bindtap="onStart" hover-class="pressed" hover-stay-time="80">
+          <view class="row-main">
+            <text class="row-title">自由训练</text>
+            <text class="meta">边练边选动作</text>
+          </view>
+          <view class="chev i i-chevron-right" />
+        </view>
+        <view wx:if="{{templates.length === 0}}" class="row tap" bindtap="goPlanWizard" hover-class="pressed" hover-stay-time="80">
+          <view class="row-main">
+            <text class="row-title">定制训练计划</text>
+            <text class="meta">按器材和每周时间自动排课</text>
+          </view>
+          <view class="chev i i-chevron-right" />
+        </view>
+        <view class="row tap" wx:for="{{templates}}" wx:key="id" data-id="{{item.id}}" bindtap="onStart" hover-class="pressed" hover-stay-time="80">
+          <view class="row-main">
+            <text class="row-title ellipsis">{{item.name}}</text>
+            <text class="meta ellipsis num">{{item.sub}}</text>
+          </view>
+          <view class="chev i i-chevron-right" />
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+
+  <!-- 首次使用：是否开启云同步 -->
+  <view class="sheet-mask {{sheetOut ? 'out' : ''}}" wx:if="{{showSync}}" catchtouchmove="noop">
+    <view class="sheet in-tab">
+      <view class="sheet-head">
+        <text class="sheet-title">开启云同步？</text>
+      </view>
+      <text class="sync-txt">开启后自动备份训练、计划和体重记录，换手机也能找回。不开启就只存在本机。</text>
+      <text class="sync-link" bindtap="goPrivacy">隐私政策</text>
+      <view class="sheet-foot">
+        <view class="btn ghost" bindtap="chooseSync" data-on="" hover-class="pressed" hover-stay-time="80">暂不开启</view>
+        <view class="btn" bindtap="chooseSync" data-on="1" hover-class="pressed" hover-stay-time="80">开启</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 云同步选择后：若无任何计划，引导生成计划 -->
+  <view class="sheet-mask {{sheetOut ? 'out' : ''}}" wx:if="{{showPlanPrompt}}" catchtouchmove="noop">
+    <view class="sheet in-tab">
+      <view class="sheet-head">
+        <text class="sheet-title">生成个性化训练计划</text>
+      </view>
+      <text class="sync-txt">根据场地、器材和每周训练天数，生成适合你的计划。</text>
+      <view class="sheet-foot plan-foot">
+        <view class="btn ghost" bindtap="skipPlanPrompt" hover-class="pressed" hover-stay-time="80">跳过</view>
+        <view class="btn" bindtap="goPlanWizard" hover-class="pressed" hover-stay-time="80">去生成</view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,36 @@
+<view class="page grouped" style="{{themeStyle}}">
+  <view class="card">
+    <view class="form-row">
+      <text class="form-label">性别</text>
+      <view class="seg">
+        <view class="opt seg-item {{gender === 'male' ? 'on' : ''}}" data-g="male" bindtap="pickGender">男</view>
+        <view class="opt seg-item {{gender === 'female' ? 'on' : ''}}" data-g="female" bindtap="pickGender">女</view>
+      </view>
+    </view>
+
+    <view class="row tap" data-k="age" bindtap="openEdit" hover-class="pressed" hover-stay-time="80">
+      <text class="row-main row-title">年龄</text>
+      <text class="row-val num {{age ? 'set' : ''}}">{{age ? age + ' 岁' : '未填'}}</text>
+      <view class="chev i i-chevron-right" />
+    </view>
+
+    <view class="row tap" data-k="heightCm" bindtap="openEdit" hover-class="pressed" hover-stay-time="80">
+      <text class="row-main row-title">身高</text>
+      <text class="row-val num {{heightCm ? 'set' : ''}}">{{heightCm ? heightCm + ' cm' : '未填'}}</text>
+      <view class="chev i i-chevron-right" />
+    </view>
+  </view>
+
+  <!-- 年龄 / 身高：内置数字键盘，确定即保存 -->
+  <num-pad
+    show="{{editing}}"
+    title="{{edit.label}}"
+    unit="{{edit.unit}}"
+    value="{{edit.value}}"
+    min="{{edit.min}}"
+    max="{{edit.max}}"
+    decimals="{{edit.decimals}}"
+    bind:confirm="confirmEdit"
+    bind:close="closeEdit"
+  />
+</view>

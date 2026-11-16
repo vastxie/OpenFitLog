@@ -1,0 +1,20 @@
+{
+  "name": "openfitlog",
+  "version": "1.0.0",
+  "description": "OpenFitLog — 开源、离线优先的极简器械健身与拉伸记录微信小程序",
+  "private": false,
+  "license": "MIT",
+  "author": "vastxie",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "node server/index.js --dev",
+    "download:media": "node tools/download-media.js",
+    "sync-server": "node server/index.js",
+    "sync-server:dev": "node server/index.js --dev",
+    "build:parts": "node tools/build-part-icons.js",
+    "build:icons": "node tools/build-icons.js",
+    "build:tabbar": "node tools/build-tabbar.js"
+  }
+}

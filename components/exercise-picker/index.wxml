@@ -1,0 +1,59 @@
+<view class="sheet-mask {{out ? 'out' : ''}}" style="{{themeStyle}}" wx:if="{{show}}" catchtouchmove="noop" bindtap="onClose">
+  <view class="sheet picker" catchtap="noop">
+    <view class="sheet-head">
+      <text class="sheet-title">添加动作</text>
+      <text class="sheet-action" bindtap="onClose">取消</text>
+    </view>
+
+    <view class="search">
+      <view class="search-ic i i-search" />
+      <input
+        class="search-input"
+        placeholder="搜索动作"
+        placeholder-class="ph"
+        value="{{keyword}}"
+        confirm-type="search"
+        bindinput="onSearch"
+      />
+    </view>
+
+    <scroll-view wx:if="{{!keyword}}" scroll-x enhanced show-scrollbar="{{false}}" class="cats">
+      <text
+        wx:for="{{categories}}"
+        wx:key="key"
+        class="cat {{cat === item.key ? 'on' : ''}}"
+        data-cat="{{item.key}}"
+        bindtap="onCat"
+      >{{item.name}}</text>
+    </scroll-view>
+
+    <scroll-view scroll-y class="list">
+      <view wx:if="{{creatable}}" class="p-row tap-fx" bindtap="onCreate" hover-class="pressed" hover-stay-time="80">
+        <view class="p-thumb p-thumb-plus"><view class="ic i i-plus" /></view>
+        <text class="p-name">{{keyword ? '新建动作“' + keyword + '”' : '新建动作'}}</text>
+      </view>
+
+      <view class="p-row tap-fx" wx:for="{{list}}" wx:key="id" data-index="{{index}}" bindtap="onToggle" hover-class="pressed" hover-stay-time="80">
+        <view class="p-thumb">
+          <image wx:if="{{item.posterUrl}}" class="p-img" src="{{item.posterUrl}}" mode="aspectFill" lazy-load data-index="{{index}}" binderror="onPosterErr" />
+          <view wx:else class="p-part"><view class="part-ic i i-part-{{item.part}}" /></view>
+        </view>
+        <view class="p-info">
+          <text class="p-name ellipsis">{{item.name}}</text>
+          <text class="meta ellipsis">{{item.sub}}</text>
+        </view>
+        <view class="check {{item.checked ? 'on' : ''}}">
+          <view wx:if="{{item.checked}}" class="check-ic i i-check" />
+        </view>
+      </view>
+
+      <view wx:if="{{list.length === 0 && !creatable}}" class="empty">{{cat === 'fav' ? '还没有收藏的动作' : '没有动作'}}</view>
+    </scroll-view>
+
+    <view class="p-foot">
+      <view class="btn {{count > 0 ? '' : 'disabled'}}" bindtap="onConfirm" hover-class="{{count > 0 ? 'pressed' : 'none'}}" hover-stay-time="80">
+        {{count > 0 ? '添加 ' + count + ' 个动作' : '选择动作'}}
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,333 @@
+page {
+  background: var(--bg-group);
+}
+
+.cal {
+  padding: 0 20rpx 12rpx;
+}
+
+.cal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 96rpx;
+  padding-left: 12rpx;
+}
+
+.cal-month {
+  display: flex;
+  align-items: center;
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.cal-fold {
+  width: 28rpx;
+  height: 28rpx;
+  margin-left: 8rpx;
+  transition: transform 0.2s ease;
+}
+
+.cal-fold.open {
+  transform: rotate(180deg);
+}
+
+.cal-nav {
+  display: flex;
+  align-items: center;
+}
+
+.cal-today {
+  font-size: 24rpx;
+  color: var(--ink-2);
+  padding: 16rpx;
+}
+
+.cal-arrow {
+  width: 72rpx;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cal-arrow:last-child {
+  margin-right: -8rpx;
+}
+
+.cal-arrow-ic {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.cal-swiper {
+  width: 100%;
+  overflow: hidden;
+  transition: height 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+}
+
+@keyframes calSlideNextA {
+  from {
+    opacity: 0.35;
+    transform: translateX(56rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes calSlideNextB {
+  from {
+    opacity: 0.35;
+    transform: translateX(56rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes calSlidePrevA {
+  from {
+    opacity: 0.35;
+    transform: translateX(-56rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes calSlidePrevB {
+  from {
+    opacity: 0.35;
+    transform: translateX(-56rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.cal-slide-next-a {
+  animation: calSlideNextA 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cal-slide-next-b {
+  animation: calSlideNextB 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cal-slide-prev-a {
+  animation: calSlidePrevA 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cal-slide-prev-b {
+  animation: calSlidePrevB 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cal-week {
+  font-size: 24rpx;
+  color: var(--ink-3);
+  padding-bottom: 8rpx;
+}
+
+.cal-cell {
+  height: 96rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6rpx 0;
+}
+
+.cal-day {
+  width: 68rpx;
+  height: 68rpx;
+  border-radius: 50%;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cal-day.out {
+  color: var(--ink-3);
+}
+
+.cal-day.today {
+  font-weight: 600;
+  background: var(--fill);
+}
+
+.cal-day.on {
+  background: var(--primary);
+  color: var(--on-primary);
+  font-weight: 600;
+}
+
+.cal-dot {
+  width: 8rpx;
+  height: 8rpx;
+  margin-top: 6rpx;
+  border-radius: 50%;
+}
+
+.cal-dot.show {
+  background: var(--accent);
+}
+
+.day-head {
+  display: flex;
+  align-items: baseline;
+  margin-top: 40rpx;
+  padding: 0 8rpx;
+}
+
+.day-title {
+  font-size: 40rpx;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.day-today {
+  margin-left: 16rpx;
+  font-size: 24rpx;
+  color: var(--ink-3);
+}
+
+.day-week {
+  margin-left: auto;
+  font-size: 24rpx;
+  color: var(--ink-2);
+}
+
+/* 一次训练一张卡片：标题 + 一行合计 + 动作清单 */
+.ses {
+  margin-top: 20rpx;
+  padding: 28rpx 32rpx 20rpx;
+  border-radius: var(--r-card);
+  background: var(--card);
+}
+
+.ses-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ses-title {
+  flex: 1;
+  min-width: 0;
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.ex-list {
+  margin-top: 16rpx;
+}
+
+.ex-line {
+  display: flex;
+  align-items: center;
+  padding: 8rpx 0;
+}
+
+.ex-part {
+  width: 28px;
+  height: 28px;
+  margin-right: 16rpx;
+}
+
+.ex-name {
+  flex: 1;
+  min-width: 0;
+}
+
+.ex-val {
+  flex-shrink: 1;
+  max-width: 46%;
+  margin-left: 24rpx;
+  color: var(--ink-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 还没练的动作 */
+.ex-line.todo .ex-name,
+.ex-line.todo .ex-val {
+  color: var(--ink-3);
+}
+
+.ex-line.todo .part-ic {
+  background-color: var(--ink-3);
+}
+
+/* 旧版拉伸 / 有氧单条记录 */
+.xrow {
+  margin-top: 20rpx;
+  padding: 20rpx 32rpx;
+  border-bottom: none;
+  border-radius: var(--r-card);
+  background: var(--card);
+}
+
+.none {
+  margin-top: 20rpx;
+  padding: 96rpx 32rpx;
+  border-radius: var(--r-card);
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--ink-3);
+}
+
+.none-sub {
+  margin-top: 8rpx;
+  color: var(--ink-3);
+}
+
+.none-link {
+  margin-top: 20rpx;
+  padding: 12rpx 28rpx;
+  border-radius: 999rpx;
+  background: var(--fill);
+  color: var(--ink);
+  font-size: 24rpx;
+}
+
+.plan-foot {
+  margin-top: 32rpx;
+}
+
+.start-list {
+  max-height: 60vh;
+}
+
+.sync-txt {
+  display: block;
+  color: var(--ink-2);
+  line-height: 1.7;
+}
+
+.sync-link {
+  display: inline-block;
+  padding: 16rpx 0;
+  font-size: 24rpx;
+  color: var(--ink-2);
+  text-decoration: underline;
+}
+
+/* 切换日期时当天内容淡入 */
+.ses,
+.xrow,
+.none {
+  animation: fadeUp 0.26s var(--ease-out) both;
+}

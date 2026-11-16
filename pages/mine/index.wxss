@@ -1,0 +1,121 @@
+page {
+  background: var(--bg-group);
+}
+
+/* 训练天数：三个数字一行，整张卡片点进统计 */
+.stats {
+  display: flex;
+  align-items: center;
+  padding: 32rpx;
+}
+
+.stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-top {
+  display: flex;
+  align-items: baseline;
+}
+
+.stat-num {
+  font-size: 64rpx;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.stat-unit {
+  margin-left: 8rpx;
+  font-size: 24rpx;
+  color: var(--ink-2);
+}
+
+.card .row {
+  min-height: 104rpx;
+}
+
+.row-ic {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 24rpx;
+}
+
+/* 兜底「联系客服」按钮样式还原成普通列表行 */
+button.row-btn {
+  display: flex;
+  align-items: center;
+  width: 100% !important;
+  min-height: 104rpx;
+  margin: 0;
+  font-size: 28rpx;
+  padding: 20rpx 0;
+  background: transparent;
+  border-radius: 0;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: left;
+  color: var(--ink);
+}
+
+button.row-btn::after {
+  border: none;
+}
+
+.theme-dot {
+  background: var(--primary);
+  transition: background-color 0.24s ease;
+  width: 24rpx;
+  height: 24rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.theme-val {
+  margin-left: 12rpx;
+}
+
+.theme-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32rpx 0;
+  padding: 8rpx 0 24rpx;
+}
+
+.theme-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.theme-swatch {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-check {
+  width: 44rpx;
+  height: 44rpx;
+  animation: pop 0.28s var(--ease-pop) both;
+}
+
+.theme-name {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  color: var(--ink-2);
+  transition: color 0.18s ease;
+}
+
+.theme-name.on {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.tail {
+  height: 48rpx;
+}

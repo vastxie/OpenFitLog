@@ -1,0 +1,234 @@
+<view class="page" style="{{themeStyle}}">
+  <!-- 问答 -->
+  <block wx:if="{{phase === 'form'}}">
+    <view class="top">
+      <view class="track"><view class="track-fill" style="width: {{stepPct}}%"></view></view>
+      <view class="top-meta">
+        <text class="meta num">{{step}} / {{totalSteps}}</text>
+        <text wx:if="{{canSkip}}" class="skip" bindtap="skipStep">跳过</text>
+      </view>
+    </view>
+
+    <block wx:if="{{step === 1}}">
+      <text class="q-title">基本情况</text>
+      <text class="meta q-sub">用来估算起始重量，年龄可跳过</text>
+
+      <view class="sec-label">性别</view>
+      <view class="opts-2">
+        <view class="opt {{form.gender === 'male' ? 'on' : ''}}" data-field="gender" data-val="male" bindtap="pickOpt">男</view>
+        <view class="opt {{form.gender === 'female' ? 'on' : ''}}" data-field="gender" data-val="female" bindtap="pickOpt">女</view>
+      </view>
+
+      <view class="choices fields">
+        <view class="row tap" data-field="age" bindtap="openEdit" hover-class="pressed" hover-stay-time="80">
+          <text class="row-main row-title">年龄</text>
+          <text class="row-val num {{form.age ? '' : 'faint'}}">{{form.age ? form.age + ' 岁' : '未填'}}</text>
+          <view class="chev i i-chevron-right" />
+        </view>
+      </view>
+    </block>
+
+    <block wx:elif="{{step === 2}}">
+      <text class="q-title">身体数据</text>
+      <text class="meta q-sub">选填，填了算起始重量更准</text>
+
+      <view class="choices fields">
+        <view class="row tap" data-field="heightCm" bindtap="openEdit" hover-class="pressed" hover-stay-time="80">
+          <text class="row-main row-title">身高</text>
+          <text class="row-val num {{form.heightCm ? '' : 'faint'}}">{{form.heightCm ? form.heightCm + ' cm' : '未填'}}</text>
+          <view class="chev i i-chevron-right" />
+        </view>
+        <view class="row tap" data-field="weightKg" bindtap="openEdit" hover-class="pressed" hover-stay-time="80">
+          <text class="row-main row-title">体重</text>
+          <text class="row-val num {{form.weightKg ? '' : 'faint'}}">{{form.weightKg ? form.weightKg + ' kg' : '未填'}}</text>
+          <view class="chev i i-chevron-right" />
+        </view>
+        <view class="row tap" data-field="targetWeightKg" bindtap="openEdit" hover-class="pressed" hover-stay-time="80">
+          <text class="row-main row-title">目标体重</text>
+          <text class="row-val num {{form.targetWeightKg ? '' : 'faint'}}">{{form.targetWeightKg ? form.targetWeightKg + ' kg' : '未填'}}</text>
+          <view class="chev i i-chevron-right" />
+        </view>
+      </view>
+    </block>
+
+    <block wx:elif="{{step === 3}}">
+      <text class="q-title">训练目标</text>
+      <view class="choices">
+        <view class="choice tap-fx" wx:for="{{goals}}" wx:key="key" data-field="goal" data-val="{{item.key}}" bindtap="pickOpt" hover-class="pressed" hover-stay-time="80">
+          <view class="row-main">
+            <text class="row-title">{{item.name}}</text>
+            <text class="meta">{{item.desc}}</text>
+          </view>
+          <view class="check {{form.goal === item.key ? 'on' : ''}}">
+            <view wx:if="{{form.goal === item.key}}" class="check-ic i i-check" />
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <block wx:elif="{{step === 4}}">
+      <text class="q-title">训练基础</text>
+      <view class="choices">
+        <view class="choice tap-fx" wx:for="{{experiences}}" wx:key="key" data-field="experience" data-val="{{item.key}}" bindtap="pickOpt" hover-class="pressed" hover-stay-time="80">
+          <view class="row-main">
+            <text class="row-title">{{item.name}}</text>
+            <text class="meta">{{item.desc}}</text>
+          </view>
+          <view class="check {{form.experience === item.key ? 'on' : ''}}">
+            <view wx:if="{{form.experience === item.key}}" class="check-ic i i-check" />
+          </view>
+        </view>
+      </view>
+
+      <view class="sec-label">一口气能做几个标准俯卧撑</view>
+      <view class="opts-2">
+        <view
+          wx:for="{{pushupsList}}"
+          wx:key="key"
+          class="opt num {{form.pushups === item.key ? 'on' : ''}}"
+          data-field="pushups"
+          data-val="{{item.key}}"
+          bindtap="pickOpt"
+        >{{item.name}}</view>
+      </view>
+    </block>
+
+    <block wx:elif="{{step === 5}}">
+      <text class="q-title">平时在哪练</text>
+      <view class="choices">
+        <view class="choice tap-fx" wx:for="{{places}}" wx:key="key" data-field="place" data-val="{{item.key}}" bindtap="pickOpt" hover-class="pressed" hover-stay-time="80">
+          <view class="row-main">
+            <text class="row-title">{{item.name}}</text>
+            <text class="meta">{{item.desc}}</text>
+          </view>
+          <view class="check {{form.place === item.key ? 'on' : ''}}">
+            <view wx:if="{{form.place === item.key}}" class="check-ic i i-check" />
+          </view>
+        </view>
+      </view>
+
+      <block wx:if="{{form.place === 'home'}}">
+        <view class="sec-label">家里有哪些器材（可多选）</view>
+        <view class="opts-3">
+          <view
+            wx:for="{{homeEquipList}}"
+            wx:key="key"
+            class="opt {{item.on ? 'on' : ''}}"
+            data-key="{{item.key}}"
+            bindtap="toggleHomeEquip"
+          >{{item.name}}</view>
+        </view>
+      </block>
+    </block>
+
+    <block wx:elif="{{step === 6}}">
+      <text class="q-title">每周哪几天练</text>
+      <text class="meta q-sub">{{splitSummary}}</text>
+      <view class="opts-4 days">
+        <view
+          wx:for="{{dayItems}}"
+          wx:key="dow"
+          class="opt {{item.on ? 'on' : ''}}"
+          data-dow="{{item.dow}}"
+          bindtap="toggleDay"
+        >周{{item.label}}</view>
+      </view>
+    </block>
+
+    <block wx:elif="{{step === 7}}">
+      <text class="q-title">侧重与时长</text>
+
+      <view class="sec-label">想多练哪里</view>
+      <view class="opts-2">
+        <view
+          wx:for="{{focuses}}"
+          wx:key="key"
+          class="opt {{form.focus === item.key ? 'on' : ''}}"
+          data-field="focus"
+          data-val="{{item.key}}"
+          bindtap="pickOpt"
+        >{{item.name}}</view>
+      </view>
+
+      <view class="sec-label">每次练多久</view>
+      <view class="opts-3">
+        <view
+          wx:for="{{durations}}"
+          wx:key="key"
+          class="opt num {{form.durationPref === item.key ? 'on' : ''}}"
+          data-field="durationPref"
+          data-val="{{item.key}}"
+          bindtap="pickOpt"
+        >{{item.name}}</view>
+      </view>
+
+      <view class="choice stretch tap-fx" bindtap="toggleStretch" hover-class="pressed" hover-stay-time="80">
+        <text class="row-main row-title">练完安排 2 个拉伸动作</text>
+        <view class="check {{form.withStretch ? 'on' : ''}}">
+          <view wx:if="{{form.withStretch}}" class="check-ic i i-check" />
+        </view>
+      </view>
+    </block>
+
+    <view class="dock-space"></view>
+    <view class="dock">
+      <view wx:if="{{step > 1}}" class="btn ghost narrow" bindtap="prevStep" hover-class="pressed" hover-stay-time="80">上一步</view>
+      <view class="btn" bindtap="nextStep" hover-class="pressed" hover-stay-time="80">{{step === totalSteps ? '生成计划' : '下一步'}}</view>
+    </view>
+  </block>
+
+  <!-- 生成中 -->
+  <block wx:elif="{{phase === 'generating'}}">
+    <view class="gen">
+      <text class="gen-pct num">{{genPct}}%</text>
+      <text class="gen-title">正在排计划</text>
+      <view class="gen-stages">
+        <view wx:for="{{genStageItems}}" wx:key="txt" class="gen-stage {{item.state}}">
+          <view class="check gen-check {{item.state === 'done' ? 'done' : ''}}">
+            <view wx:if="{{item.state === 'done'}}" class="check-ic i i-check" />
+          </view>
+          <text>{{item.txt}}</text>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 结果 -->
+  <block wx:elif="{{phase === 'result'}}">
+    <text class="q-title res-title">{{resultHeadline}}</text>
+    <text class="meta q-sub">起始重量按你的情况估算，练的时候可以随时改</text>
+
+    <view class="res" wx:for="{{previewDays}}" wx:key="id">
+      <view class="res-top">
+        <text class="res-name ellipsis">{{item.name}}</text>
+        <text class="meta num">{{item.metaText}}</text>
+      </view>
+      <view class="res-item" wx:for="{{item.samples}}" wx:for-item="sp" wx:key="key">
+        <view class="part res-part"><view class="part-ic i i-part-{{sp.part}}" /></view>
+        <view class="res-item-main">
+          <text class="res-item-name ellipsis">{{sp.name}}</text>
+          <text class="meta num">{{sp.detail}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="dock-space"></view>
+    <view class="dock">
+      <view class="btn ghost narrow" bindtap="restartWizard" hover-class="pressed" hover-stay-time="80">重选条件</view>
+      <view class="btn" bindtap="confirmApply" hover-class="pressed" hover-stay-time="80">就用这套</view>
+    </view>
+  </block>
+
+  <!-- 年龄 / 身高 / 体重：内置数字键盘，填完点确定，不会误点到「跳过」 -->
+  <num-pad
+    show="{{editing}}"
+    title="{{edit.label}}"
+    unit="{{edit.unit}}"
+    value="{{edit.value}}"
+    min="{{edit.min}}"
+    max="{{edit.max}}"
+    decimals="{{edit.decimals}}"
+    bind:confirm="confirmEdit"
+    bind:close="closeEdit"
+  />
+</view>

@@ -1,0 +1,115 @@
+<view class="page" style="{{themeStyle}}" wx:if="{{ex}}">
+  <view class="stage" wx:if="{{hasVideo}}">
+    <image wx:if="{{preloadPoster}}" class="stage-preload" src="{{preloadPoster}}" />
+
+    <view wx:if="{{mounted.male}}" class="stage-layer {{gender === 'male' ? 'active' : 'hidden'}}">
+      <video
+        id="vid-male"
+        class="stage-video"
+        src="{{maleMedia.videoUrl}}"
+        autoplay
+        loop
+        muted
+        controls="{{false}}"
+        show-center-play-btn="{{false}}"
+        show-loading="{{false}}"
+        enable-progress-gesture="{{false}}"
+        object-fit="contain"
+        bindloadeddata="onMaleLoaded"
+        bindplay="onMaleLoaded"
+        bindtimeupdate="onMaleTimeUpdate"
+        binderror="onMediaErr"
+      ></video>
+      <image
+        class="stage-cover {{ready.male ? 'hide' : ''}}"
+        src="{{maleMedia.posterUrl}}"
+        mode="aspectFit"
+      />
+    </view>
+
+    <view wx:if="{{mounted.female}}" class="stage-layer {{gender === 'female' ? 'active' : 'hidden'}}">
+      <video
+        id="vid-female"
+        class="stage-video"
+        src="{{femaleMedia.videoUrl}}"
+        autoplay
+        loop
+        muted
+        controls="{{false}}"
+        show-center-play-btn="{{false}}"
+        show-loading="{{false}}"
+        enable-progress-gesture="{{false}}"
+        object-fit="contain"
+        bindloadeddata="onFemaleLoaded"
+        bindplay="onFemaleLoaded"
+        bindtimeupdate="onFemaleTimeUpdate"
+        binderror="onMediaErr"
+      ></video>
+      <image
+        class="stage-cover {{ready.female ? 'hide' : ''}}"
+        src="{{femaleMedia.posterUrl}}"
+        mode="aspectFit"
+      />
+    </view>
+  </view>
+  <view wx:if="{{hasBothModels}}" class="model">
+    <text class="model-opt {{gender === 'male' ? 'on' : ''}}" data-g="male" bindtap="switchGender">男</text>
+    <text class="model-opt {{gender === 'female' ? 'on' : ''}}" data-g="female" bindtap="switchGender">女</text>
+  </view>
+
+  <view class="title-row">
+    <text class="title">{{ex.name}}</text>
+    <view class="title-fav" bindtap="toggleFav">
+      <view class="ic i i-{{isFav ? 'heart-fill' : 'heart'}}" />
+    </view>
+  </view>
+  <text wx:if="{{ex.en}}" class="en">{{ex.en}}</text>
+  <text wx:if="{{facts}}" class="meta">{{facts}}</text>
+
+  <block wx:if="{{cueList.length > 0}}">
+    <view class="label">要点</view>
+    <view class="guide-list">
+      <view class="guide-row" wx:for="{{cueList}}" wx:key="*this">
+        <text class="guide-idx num">{{index + 1}}</text>
+        <text class="guide-txt">{{item}}</text>
+      </view>
+    </view>
+  </block>
+
+  <block wx:if="{{noteList.length > 0}}">
+    <view class="label">注意</view>
+    <view class="guide-list">
+      <view class="guide-row" wx:for="{{noteList}}" wx:key="*this">
+        <text class="guide-idx">·</text>
+        <text class="guide-txt">{{item}}</text>
+      </view>
+    </view>
+  </block>
+
+  <view class="label">记录</view>
+  <view wx:if="{{history.recent.length === 0}}" class="none">还没有记录</view>
+  <block wx:else>
+    <view wx:if="{{history.best}}" class="best">
+      <text class="best-val num">{{history.best.text}}</text>
+      <text class="meta num">最大重量 · {{history.best.dateText}}</text>
+    </view>
+    <canvas wx:if="{{history.trend.length >= 2}}" type="2d" id="trend" class="trend"></canvas>
+    <text class="hist-sum meta num">{{historySum}}</text>
+    <view class="hist-row" wx:for="{{history.recent}}" wx:key="key">
+      <text class="hist-date num">{{item.dateText}}</text>
+      <text class="hist-sets num">{{item.summary}}</text>
+    </view>
+  </block>
+
+  <view wx:if="{{ex.isCustom}}" class="foot-link tap-fx" bindtap="removeCustom" hover-class="pressed" hover-stay-time="80">删除动作</view>
+
+  <block wx:if="{{actionMode !== 'none'}}">
+    <view class="dock-space"></view>
+    <view class="dock">
+      <view wx:if="{{actionMode === 'start'}}" class="btn" bindtap="startQuick" hover-class="pressed" hover-stay-time="80">开始训练</view>
+      <view wx:elif="{{actionMode === 'append'}}" class="btn" bindtap="addToActive" hover-class="pressed" hover-stay-time="80">加入当前训练</view>
+      <view wx:elif="{{actionMode === 'resume'}}" class="btn" bindtap="goActiveSession" hover-class="pressed" hover-stay-time="80">回到当前训练</view>
+    </view>
+  </block>
+  <view wx:else class="tail"></view>
+</view>

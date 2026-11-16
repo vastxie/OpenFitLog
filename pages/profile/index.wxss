@@ -1,0 +1,43 @@
+page {
+  background: var(--bg-group);
+}
+
+.card {
+  margin-top: 24rpx;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  min-height: 108rpx;
+  border-bottom: 1rpx solid var(--line);
+}
+
+.form-label {
+  width: 180rpx;
+  flex-shrink: 0;
+  font-size: 32rpx;
+}
+
+.seg {
+  margin-left: auto;
+  display: flex;
+  gap: 16rpx;
+}
+
+.seg-item {
+  width: 120rpx;
+  height: 64rpx;
+}
+
+.card .row {
+  min-height: 108rpx;
+}
+
+.row-val {
+  color: var(--ink-3);
+}
+
+.row-val.set {
+  color: var(--ink);
+}

@@ -1,0 +1,9 @@
+<view class="page" style="{{themeStyle}}">
+  <text class="meta updated">更新日期：{{updatedAt}}</text>
+  <text wx:if="{{intro}}" class="sec-line intro">{{intro}}</text>
+  <view class="sec" wx:for="{{sections}}" wx:key="title">
+    <text class="sec-title">{{item.title}}</text>
+    <text class="sec-line" wx:for="{{item.lines}}" wx:for-item="line" wx:key="*this">{{line}}</text>
+  </view>
+  <view class="tail"></view>
+</view>

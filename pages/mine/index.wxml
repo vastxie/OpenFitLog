@@ -1,0 +1,96 @@
+<view class="page grouped" style="{{themeStyle}}">
+  <view class="card stats tap-fx" bindtap="goSummary" hover-class="pressed" hover-stay-time="80">
+    <view class="stat">
+      <view class="stat-top"><text class="stat-num num">{{counts.weekDays}}</text><text class="stat-unit">天</text></view>
+      <text class="meta">本周训练</text>
+    </view>
+    <view class="stat">
+      <view class="stat-top"><text class="stat-num num">{{counts.monthDays}}</text><text class="stat-unit">天</text></view>
+      <text class="meta">本月训练</text>
+    </view>
+    <view class="stat">
+      <view class="stat-top"><text class="stat-num num">{{counts.totalDays}}</text><text class="stat-unit">天</text></view>
+      <text class="meta">累计训练</text>
+    </view>
+    <view class="chev i i-chevron-right" />
+  </view>
+
+  <view class="card">
+    <view class="row tap" bindtap="goWeight" hover-class="pressed" hover-stay-time="80">
+      <view class="row-ic i i-scale" />
+      <text class="row-main row-title">体重</text>
+      <text class="row-val num">{{weightText}}</text>
+      <view class="chev i i-chevron-right" />
+    </view>
+    <view class="row tap" bindtap="goTemplates" hover-class="pressed" hover-stay-time="80">
+      <view class="row-ic i i-plan" />
+      <text class="row-main row-title">我的计划</text>
+      <text class="row-val num">{{templateCount}} 个</text>
+      <view class="chev i i-chevron-right" />
+    </view>
+    <view class="row tap" bindtap="goProfile" hover-class="pressed" hover-stay-time="80">
+      <view class="row-ic i i-person" />
+      <text class="row-main row-title">身体资料</text>
+      <text class="row-val num">{{profileText}}</text>
+      <view class="chev i i-chevron-right" />
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="row tap" bindtap="openThemeSheet" hover-class="pressed" hover-stay-time="80">
+      <view class="row-ic i i-palette" />
+      <text class="row-main row-title">主题</text>
+      <view class="theme-dot"></view>
+      <text class="row-val theme-val">{{currentTheme.name}}</text>
+      <view class="chev i i-chevron-right" />
+    </view>
+    <view wx:if="{{hasCloudSync}}" class="row tap" bindtap="openSyncMenu" hover-class="pressed" hover-stay-time="80">
+      <view class="row-ic i i-cloud" />
+      <text class="row-main row-title">云同步</text>
+      <text class="row-val">{{syncText}}</text>
+      <view class="chev i i-chevron-right" />
+    </view>
+    <view class="row tap" bindtap="exportData" hover-class="pressed" hover-stay-time="80">
+      <view class="row-ic i i-export" />
+      <text class="row-main row-title">导出数据</text>
+      <view class="chev i i-chevron-right" />
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="row tap" bindtap="goPrivacy" hover-class="pressed" hover-stay-time="80">
+      <view class="row-ic i i-shield" />
+      <text class="row-main row-title">隐私政策</text>
+      <view class="chev i i-chevron-right" />
+    </view>
+    <view wx:if="{{hasWeComKf}}" class="row tap" bindtap="openCustomerService" hover-class="pressed" hover-stay-time="80">
+      <view class="row-ic i i-chat" />
+      <text class="row-main row-title">联系客服</text>
+      <view class="chev i i-chevron-right" />
+    </view>
+    <button wx:else class="row row-btn tap-fx" open-type="contact" hover-class="pressed" hover-stay-time="80">
+      <view class="row-ic i i-chat" />
+      <text class="row-main row-title">联系客服</text>
+      <view class="chev i i-chevron-right" />
+    </button>
+  </view>
+
+  <view class="tail"></view>
+
+  <view class="sheet-mask {{sheetOut ? 'out' : ''}}" wx:if="{{showThemeSheet}}" catchtouchmove="noop" bindtap="closeThemeSheet">
+    <view class="sheet in-tab" catchtap="noop">
+      <view class="sheet-head">
+        <text class="sheet-title">主题</text>
+        <text class="sheet-action" bindtap="closeThemeSheet">取消</text>
+      </view>
+      <view class="theme-grid">
+        <view class="theme-item tap-fx" wx:for="{{themes}}" wx:key="key" data-key="{{item.key}}" bindtap="selectTheme" hover-class="pressed" hover-stay-time="80">
+          <view class="theme-swatch" style="background: var(--p-{{item.key}})">
+            <view wx:if="{{currentTheme.key === item.key}}" class="theme-check i i-check" style="background-color: var(--op-{{item.key}})" />
+          </view>
+          <text class="theme-name {{currentTheme.key === item.key ? 'on' : ''}}">{{item.name}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

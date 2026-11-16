@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "体重",
+  "usingComponents": {
+    "num-pad": "/components/num-pad/index"
+  },
+  "navigationBarBackgroundColor": "@navBgGroup",
+  "backgroundColor": "@bgGroup"
+}

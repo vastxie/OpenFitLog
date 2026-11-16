@@ -1,0 +1,54 @@
+{
+  "pages": [
+    "pages/train/index",
+    "pages/exercises/index",
+    "pages/mine/index",
+    "pages/session/index",
+    "pages/exercise-detail/index",
+    "pages/templates/index",
+    "pages/template-edit/index",
+    "pages/plan-wizard/index",
+    "pages/profile/index",
+    "pages/summary/index",
+    "pages/weight/index",
+    "pages/privacy/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "@bgText",
+    "navigationBarBackgroundColor": "@navBg",
+    "navigationBarTitleText": "OpenFitLog",
+    "navigationBarTextStyle": "@navText",
+    "backgroundColor": "@bg"
+  },
+  "tabBar": {
+    "color": "@tabColor",
+    "selectedColor": "@tabSelected",
+    "backgroundColor": "@tabBg",
+    "borderStyle": "@tabBorder",
+    "list": [
+      {
+        "pagePath": "pages/train/index",
+        "text": "训练",
+        "iconPath": "@tabTrain",
+        "selectedIconPath": "@tabTrainOn"
+      },
+      {
+        "pagePath": "pages/exercises/index",
+        "text": "动作",
+        "iconPath": "@tabExercise",
+        "selectedIconPath": "@tabExerciseOn"
+      },
+      {
+        "pagePath": "pages/mine/index",
+        "text": "我的",
+        "iconPath": "@tabMine",
+        "selectedIconPath": "@tabMineOn"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "darkmode": true,
+  "themeLocation": "theme.json",
+  "lazyCodeLoading": "requiredComponents"
+}

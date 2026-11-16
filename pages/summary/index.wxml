@@ -1,0 +1,136 @@
+<view class="page grouped" style="{{themeStyle}}">
+  <view class="tabs">
+    <text class="tab {{mode === 'week' ? 'on' : ''}}" data-m="week" bindtap="switchMode">周</text>
+    <text class="tab {{mode === 'month' ? 'on' : ''}}" data-m="month" bindtap="switchMode">月</text>
+    <text class="tab {{mode === 'year' ? 'on' : ''}}" data-m="year" bindtap="switchMode">年</text>
+  </view>
+
+  <view class="range">
+    <view class="range-arrow tap-fx" bindtap="prevRange" hover-class="pressed" hover-stay-time="80">
+      <view class="range-ic i i-chevron-left" />
+    </view>
+    <text class="range-label num">{{stats.rangeLabel}}</text>
+    <view class="range-arrow tap-fx" bindtap="nextRange" hover-class="pressed" hover-stay-time="80">
+      <view class="range-ic i i-chevron-next" />
+    </view>
+  </view>
+
+  <view class="card kpis">
+    <view class="kpi">
+      <text class="kpi-num num">{{stats.sessionCount}}</text>
+      <text class="meta">训练次数</text>
+    </view>
+    <view class="kpi">
+      <text class="kpi-num num">{{stats.minutesText}}</text>
+      <text class="meta">时长（分钟）</text>
+    </view>
+    <view class="kpi">
+      <text class="kpi-num num">{{stats.volumeText}}</text>
+      <text class="meta">容量（kg）</text>
+    </view>
+  </view>
+
+  <!-- 年：全年每天的训练时长，颜色越深练得越久 -->
+  <block wx:if="{{mode === 'year' && yearHeat}}">
+    <view class="label">全年</view>
+    <view class="card heat">
+      <view class="heat-body">
+        <view class="heat-dow">
+          <text>一</text>
+          <text>三</text>
+          <text>五</text>
+          <text>日</text>
+        </view>
+        <scroll-view
+          scroll-x
+          enhanced
+          show-scrollbar="{{false}}"
+          scroll-into-view="{{focusColId}}"
+          class="heat-scroll"
+        >
+          <view class="heat-cols">
+            <view
+              class="heat-col"
+              wx:for="{{yearHeat.weeks}}"
+              wx:key="col"
+              id="hm_col_{{item.col}}"
+            >
+              <text class="heat-m">{{item.monthMark}}</text>
+              <view
+                wx:for="{{item.days}}"
+                wx:for-item="d"
+                wx:key="dateStr"
+                class="heat-cell {{d.inYear ? '' : 'out'}} {{d.isToday ? 'today-ring' : ''}}"
+                style="{{d.inYear ? 'background:' + heatColors[d.level] : ''}}"
+                data-date="{{d.inYear ? d.dateStr : ''}}"
+                data-min="{{d.minutes}}"
+                bindtap="onTapHeatDay"
+              ></view>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+      <view class="heat-foot">
+        <view class="heat-legend">
+          <text class="heat-leg-txt">少</text>
+          <view
+            wx:for="{{heatColors}}"
+            wx:key="*this"
+            class="heat-leg-dot"
+            style="background: {{item}}"
+          ></view>
+          <text class="heat-leg-txt">多</text>
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 月：当月每天的训练时长 -->
+  <block wx:if="{{mode === 'month' && monthHeat.length > 0}}">
+    <view class="label">本月</view>
+    <view class="card mheat">
+      <view class="mheat-head">
+        <text wx:for="{{['一', '二', '三', '四', '五', '六', '日']}}" wx:key="*this">{{item}}</text>
+      </view>
+      <view class="mheat-grid">
+        <view
+          wx:for="{{monthHeat}}"
+          wx:key="dateStr"
+          class="mheat-cell num {{item.inMonth ? '' : 'out'}} {{item.level >= 3 ? 'deep' : ''}}"
+          style="{{item.inMonth && item.level > 0 ? 'background:' + heatColors[item.level] : ''}}"
+          data-date="{{item.inMonth ? item.dateStr : ''}}"
+          data-min="{{item.minutes}}"
+          bindtap="onTapHeatDay"
+        >{{item.inMonth ? item.dayNum : ''}}</view>
+      </view>
+    </view>
+  </block>
+
+  <view class="label">{{mode === 'year' ? '每月时长（分钟）' : '每天时长（分钟）'}}</view>
+  <view class="card chart-card">
+    <canvas type="2d" id="chart" class="chart"></canvas>
+  </view>
+
+  <block wx:if="{{stats.parts.length > 0}}">
+    <view class="label">各部位组数</view>
+    <view class="card parts">
+      <view class="part-row" wx:for="{{stats.parts}}" wx:key="key">
+        <text class="part-name">{{item.name}}</text>
+        <view class="part-track"><view class="part-bar" style="width: {{item.pct}}%"></view></view>
+        <text class="part-sets num">{{item.sets}}</text>
+      </view>
+    </view>
+  </block>
+
+  <view class="card">
+    <view class="row">
+      <text class="row-main">练过的动作</text>
+      <text class="row-val num">{{stats.exerciseCount}} 个</text>
+    </view>
+    <view class="row">
+      <text class="row-main">完成组数</text>
+      <text class="row-val num">{{stats.totalSets}} 组</text>
+    </view>
+  </view>
+  <view class="tail"></view>
+</view>

@@ -1,0 +1,254 @@
+page {
+  background: var(--bg-group);
+}
+
+.tabs {
+  padding: 8rpx 8rpx 0;
+}
+
+.range {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 96rpx;
+  padding: 0 8rpx;
+}
+
+.range-arrow {
+  width: 72rpx;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.range-arrow:first-child {
+  margin-left: -20rpx;
+}
+
+.range-arrow:last-child {
+  margin-right: -20rpx;
+}
+
+.range-ic {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.range-label {
+  color: var(--ink-2);
+}
+
+.kpis {
+  display: flex;
+  margin-top: 8rpx;
+  padding: 32rpx;
+}
+
+.kpi {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.kpi-num {
+  font-size: 40rpx;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* 全年热力图：小方格是数据标记，圆角 4rpx */
+.heat {
+  padding: 24rpx 24rpx 28rpx;
+}
+
+.heat-body {
+  display: flex;
+  align-items: flex-end;
+}
+
+.heat-dow {
+  width: 40rpx;
+  height: 204rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 24rpx;
+  line-height: 1;
+  color: var(--ink-3);
+  flex-shrink: 0;
+}
+
+.heat-scroll {
+  flex: 1;
+  min-width: 0;
+}
+
+.heat-cols {
+  display: inline-flex;
+  gap: 6rpx;
+  padding-right: 12rpx;
+}
+
+.heat-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.heat-m {
+  height: 36rpx;
+  font-size: 24rpx;
+  line-height: 1;
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+.heat-cell {
+  width: 24rpx;
+  height: 24rpx;
+  border-radius: 4rpx;
+  background: var(--fill);
+}
+
+.heat-cell.out {
+  background: transparent;
+}
+
+.heat-cell.today-ring {
+  box-shadow: 0 0 0 2rpx var(--ink);
+}
+
+.heat-foot {
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.heat-legend {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.heat-leg-txt {
+  font-size: 24rpx;
+  color: var(--ink-3);
+}
+
+.heat-leg-dot {
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 4rpx;
+}
+
+/* 本月日历 */
+.mheat {
+  padding: 28rpx 24rpx;
+}
+
+.mheat-head {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 24rpx;
+  color: var(--ink-3);
+  margin-bottom: 12rpx;
+}
+
+.mheat-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10rpx;
+}
+
+.mheat-cell {
+  height: 64rpx;
+  border-radius: var(--r-sm);
+  background: var(--fill);
+  color: var(--ink-2);
+  font-size: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mheat-cell.out {
+  background: transparent;
+}
+
+.mheat-cell.deep {
+  color: var(--on-heat);
+  font-weight: 600;
+}
+
+.chart-card {
+  padding: 32rpx 24rpx 24rpx;
+}
+
+.chart {
+  display: block;
+  width: 100%;
+  height: 340rpx;
+}
+
+/* 各部位组数：横条，最多的一项占满 */
+.parts {
+  padding: 16rpx 32rpx;
+}
+
+.part-row {
+  display: flex;
+  align-items: center;
+  height: 64rpx;
+}
+
+.part-name {
+  width: 80rpx;
+  flex-shrink: 0;
+  color: var(--ink-2);
+}
+
+.part-track {
+  flex: 1;
+  height: 12rpx;
+  border-radius: 6rpx;
+  background: var(--fill);
+  overflow: hidden;
+}
+
+.part-bar {
+  height: 100%;
+  border-radius: 6rpx;
+  background: var(--ink-2);
+  transition: width 0.32s var(--ease-out);
+}
+
+.part-sets {
+  width: 72rpx;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.row {
+  min-height: 96rpx;
+}
+
+.row-val {
+  color: var(--ink);
+}
+
+.tail {
+  height: 48rpx;
+}
+
+/* 切换周 / 月 / 年时，热力图淡入 */
+.heat,
+.mheat {
+  animation: fadeIn 0.24s ease both;
+}
+
+.mheat-cell,
+.heat-cell {
+  transition: background-color 0.2s ease;
+}

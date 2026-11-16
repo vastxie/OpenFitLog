@@ -1,0 +1,153 @@
+/* 内置数字键盘 */
+.np-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120rpx;
+  margin-top: 8rpx;
+}
+
+.np-num {
+  font-size: 64rpx;
+  font-weight: 600;
+  line-height: 1.2;
+  border-radius: 8rpx;
+  transition: background-color 0.2s ease;
+}
+
+.np-num.empty {
+  color: var(--ink-4);
+}
+
+/* 刚打开时旧值处于选中状态，直接按数字会整体替换 */
+.np-num.fresh {
+  padding: 0 8rpx;
+  background: var(--fill);
+}
+
+.np-caret {
+  width: 4rpx;
+  height: 64rpx;
+  margin-left: 4rpx;
+  border-radius: 2rpx;
+  background: var(--primary);
+  animation: npBlink 1s steps(1) infinite;
+}
+
+.np-unit {
+  margin-left: 12rpx;
+  font-size: 32rpx;
+  color: var(--ink-2);
+}
+
+.np-hint {
+  text-align: center;
+  font-size: 24rpx;
+  color: var(--ink-3);
+  transition: color 0.2s ease;
+}
+
+.np-hint.error {
+  color: var(--ink);
+}
+
+.np-hint.shake {
+  animation: npShake 0.32s ease;
+}
+
+.np-keys {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16rpx;
+  margin-top: 16rpx;
+}
+
+.np-display + .np-hint + .np-keys {
+  margin-top: 32rpx;
+}
+
+/* 快捷加减 */
+.np-steps {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 32rpx;
+}
+
+.np-adj {
+  flex: 1;
+  height: 88rpx;
+  border-radius: var(--r-ctl);
+  background: var(--fill);
+  font-size: 32rpx;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.np-steps.with-seg .np-adj {
+  flex: 0 0 136rpx;
+}
+
+.np-seg {
+  flex: 1;
+  height: 88rpx;
+  display: flex;
+  padding: 6rpx;
+  border-radius: var(--r-ctl);
+  background: var(--fill);
+}
+
+.np-seg-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18rpx;
+  color: var(--ink-2);
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.np-seg-item.on {
+  background: var(--seg-on);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.np-key {
+  height: 100rpx;
+  border-radius: var(--r-ctl);
+  background: var(--fill);
+  font-size: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.np-key.blank {
+  background: transparent;
+}
+
+.np-del {
+  width: 44rpx;
+  height: 44rpx;
+  background-color: var(--ink);
+}
+
+.np-foot {
+  display: flex;
+  padding-top: 24rpx;
+}
+
+@keyframes npBlink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes npShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-12rpx); }
+  40% { transform: translateX(10rpx); }
+  60% { transform: translateX(-6rpx); }
+  80% { transform: translateX(4rpx); }
+}

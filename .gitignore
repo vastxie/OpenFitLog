@@ -1,0 +1,18 @@
+# macOS / OS
+.DS_Store
+Thumbs.db
+
+# 微信开发者工具本地私有配置
+project.private.config.json
+
+# 依赖与构建缓存
+node_modules/
+miniprogram_npm/
+
+# 环境变量、可选本地媒体包与本地云同步服务端数据
+.env
+.env.*
+!.env.example
+media/
+server/data/
+*.log

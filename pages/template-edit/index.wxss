@@ -1,0 +1,88 @@
+.name {
+  height: 76rpx;
+  margin-top: 24rpx;
+  font-size: 40rpx;
+  font-weight: 600;
+}
+
+.desc {
+  height: 64rpx;
+  color: var(--ink-2);
+}
+
+.dow-row {
+  margin-top: 16rpx;
+  border-top: 1rpx solid var(--line);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid var(--line);
+}
+
+.item-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-name {
+  display: block;
+  font-size: 32rpx;
+}
+
+.item-nums {
+  display: flex;
+  align-items: center;
+  margin-top: 16rpx;
+  color: var(--ink-2);
+}
+
+.n-input {
+  width: 96rpx;
+  height: 64rpx;
+  border-radius: var(--r-sm);
+  background: var(--fill);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.n-input.ph {
+  color: var(--ink-3);
+}
+
+.n-weight {
+  width: 120rpx;
+  margin-left: 32rpx;
+}
+
+.n-unit {
+  margin-left: 12rpx;
+}
+
+.n-x {
+  margin: 0 16rpx;
+  color: var(--ink-3);
+}
+
+.item-more {
+  width: 72rpx;
+  height: 72rpx;
+  margin-right: -16rpx;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rest-label-2 {
+  margin-top: 40rpx;
+}
+
+/* 新加的动作淡入 */
+.item {
+  animation: fadeUp 0.26s var(--ease-out) both;
+}

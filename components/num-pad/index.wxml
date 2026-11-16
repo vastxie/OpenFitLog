@@ -1,0 +1,53 @@
+<view class="sheet-mask {{out ? 'out' : ''}}" style="{{themeStyle}}" wx:if="{{show}}" catchtouchmove="noop" bindtap="onClose">
+  <view class="sheet np" catchtap="noop">
+    <view class="sheet-head">
+      <text class="sheet-title">{{title}}</text>
+      <text class="sheet-action" bindtap="onClose">取消</text>
+    </view>
+
+    <!-- 页面可以在数字上方放额外内容，比如日期 -->
+    <slot name="top"></slot>
+
+    <view class="np-display">
+      <text class="np-num num {{text ? '' : 'empty'}} {{fresh ? 'fresh' : ''}}">{{text || '0'}}</text>
+      <view wx:if="{{!fresh}}" class="np-caret"></view>
+      <text wx:if="{{unit}}" class="np-unit">{{unit}}</text>
+    </view>
+    <view class="np-hint {{error ? 'error' : ''}} {{shake ? 'shake' : ''}}">{{hint}}</view>
+
+    <!-- 快捷加减：两侧按钮写出当前步长，中间选步长 -->
+    <view wx:if="{{curStep > 0}}" class="np-steps {{stepList.length > 0 ? 'with-seg' : ''}}">
+      <view class="np-adj num tap-fx" data-dir="-1" bindtap="onAdjust" hover-class="pressed" hover-stay-time="80">−{{curStep}}</view>
+      <view wx:if="{{stepList.length > 0}}" class="np-seg">
+        <view
+          wx:for="{{stepList}}"
+          wx:key="*this"
+          class="np-seg-item num {{curStep === item ? 'on' : ''}}"
+          data-s="{{item}}"
+          bindtap="onPickStep"
+        >{{item}}</view>
+      </view>
+      <view class="np-adj num tap-fx" data-dir="1" bindtap="onAdjust" hover-class="pressed" hover-stay-time="80">+{{curStep}}</view>
+    </view>
+
+    <view class="np-keys">
+      <view
+        wx:for="{{keys}}"
+        wx:key="index"
+        class="np-key num {{item ? 'tap-fx' : 'blank'}}"
+        data-key="{{item}}"
+        bindtap="onKey"
+        bindlongpress="clearAll"
+        hover-class="{{item ? 'pressed' : 'none'}}"
+        hover-stay-time="80"
+      >
+        <view wx:if="{{item === 'del'}}" class="np-del i i-backspace" />
+        <text wx:else>{{item}}</text>
+      </view>
+    </view>
+
+    <view class="np-foot">
+      <view class="btn" bindtap="onConfirm" hover-class="pressed" hover-stay-time="80">{{confirmText}}</view>
+    </view>
+  </view>
+</view>

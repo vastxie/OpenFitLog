@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "",
+  "usingComponents": {
+    "exercise-picker": "/components/exercise-picker/index",
+    "num-pad": "/components/num-pad/index"
+  }
+}

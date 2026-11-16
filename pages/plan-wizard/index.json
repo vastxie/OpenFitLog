@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "生成计划",
+  "usingComponents": {
+    "num-pad": "/components/num-pad/index"
+  }
+}

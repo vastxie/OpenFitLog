@@ -1,0 +1,38 @@
+{
+  "light": {
+    "navBg": "#ffffff",
+    "navBgGroup": "#f4f4f4",
+    "navText": "black",
+    "bg": "#ffffff",
+    "bgGroup": "#f4f4f4",
+    "bgText": "dark",
+    "tabColor": "#a3a3a3",
+    "tabSelected": "#111111",
+    "tabBg": "#ffffff",
+    "tabBorder": "black",
+    "tabTrain": "assets/tabbar/train.png",
+    "tabTrainOn": "assets/tabbar/train-on-ink.png",
+    "tabExercise": "assets/tabbar/exercise.png",
+    "tabExerciseOn": "assets/tabbar/exercise-on-ink.png",
+    "tabMine": "assets/tabbar/mine.png",
+    "tabMineOn": "assets/tabbar/mine-on-ink.png"
+  },
+  "dark": {
+    "navBg": "#111111",
+    "navBgGroup": "#111111",
+    "navText": "white",
+    "bg": "#111111",
+    "bgGroup": "#111111",
+    "bgText": "light",
+    "tabColor": "#6b6b6b",
+    "tabSelected": "#ededed",
+    "tabBg": "#1c1c1c",
+    "tabBorder": "white",
+    "tabTrain": "assets/tabbar/train-dark.png",
+    "tabTrainOn": "assets/tabbar/train-on-ink-dark.png",
+    "tabExercise": "assets/tabbar/exercise-dark.png",
+    "tabExerciseOn": "assets/tabbar/exercise-on-ink-dark.png",
+    "tabMine": "assets/tabbar/mine-dark.png",
+    "tabMineOn": "assets/tabbar/mine-on-ink-dark.png"
+  }
+}

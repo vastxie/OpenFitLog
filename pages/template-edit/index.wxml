@@ -1,0 +1,104 @@
+<view class="page" style="{{themeStyle}}">
+  <input
+    class="name"
+    value="{{name}}"
+    placeholder="计划名称"
+    placeholder-class="ph"
+    maxlength="30"
+    bindinput="onName"
+  />
+  <input
+    class="desc"
+    value="{{desc}}"
+    placeholder="备注（选填）"
+    placeholder-class="ph"
+    maxlength="40"
+    bindinput="onDesc"
+  />
+  <picker mode="selector" range="{{dowOptions}}" value="{{weekday}}" bindchange="onDow">
+    <view class="row tap dow-row" hover-class="pressed" hover-stay-time="80">
+      <text class="row-main row-title">训练日</text>
+      <text class="row-val">{{dowOptions[weekday]}}</text>
+      <view class="chev i i-chevron-right" />
+    </view>
+  </picker>
+
+  <view class="label">动作</view>
+  <view wx:if="{{items.length === 0}}" class="empty">还没有动作</view>
+
+  <view class="item" wx:for="{{items}}" wx:key="key" wx:for-index="i">
+    <view class="item-main">
+      <text class="item-name ellipsis">{{item.name}}</text>
+      <view class="item-nums">
+        <view class="n-input num tap-fx" data-i="{{i}}" data-f="sets" bindtap="openPad" hover-class="pressed" hover-stay-time="80">{{item.sets}}</view>
+        <text class="n-unit">组</text>
+        <text class="n-x">×</text>
+        <view class="n-input num tap-fx" data-i="{{i}}" data-f="amount" bindtap="openPad" hover-class="pressed" hover-stay-time="80">{{item.amount}}</view>
+        <text class="n-unit">{{item.unitLabel}}</text>
+        <block wx:if="{{!item.timed}}">
+          <view class="n-input n-weight num tap-fx {{item.weight === '' ? 'ph' : ''}}" data-i="{{i}}" data-f="weight" bindtap="openPad" hover-class="pressed" hover-stay-time="80">{{item.weight === '' ? '重量' : item.weight}}</view>
+          <text class="n-unit">kg</text>
+        </block>
+      </view>
+    </view>
+    <view class="item-more tap-fx" data-i="{{i}}" bindtap="openItemMenu" hover-class="pressed" hover-stay-time="80">
+      <view class="ic i i-more" />
+    </view>
+  </view>
+
+  <view wx:if="{{id}}" class="foot-link tap-fx" bindtap="remove" hover-class="pressed" hover-stay-time="80">删除计划</view>
+
+  <view class="dock-space"></view>
+  <view class="dock">
+    <view class="btn ghost" bindtap="openPicker" hover-class="pressed" hover-stay-time="80">添加动作</view>
+    <view class="btn" bindtap="save" hover-class="pressed" hover-stay-time="80">保存</view>
+  </view>
+
+  <exercise-picker show="{{showPicker}}" bind:confirm="onPicked" bind:close="closePicker" />
+
+  <num-pad
+    show="{{pad.show}}"
+    title="{{pad.title}}"
+    unit="{{pad.unit}}"
+    value="{{pad.value}}"
+    min="{{pad.min}}"
+    max="{{pad.max}}"
+    decimals="{{pad.decimals}}"
+    allow-empty="{{pad.allowEmpty}}"
+    steps="{{pad.steps}}"
+    step="{{pad.step}}"
+    step-key="{{pad.stepKey}}"
+    bind:confirm="onPadConfirm"
+    bind:close="closePad"
+  />
+
+  <!-- 这个动作的休息时长 -->
+  <view class="sheet-mask {{sheetOut ? 'out' : ''}}" wx:if="{{showRestSheet}}" catchtouchmove="noop" bindtap="closeRestSheet">
+    <view class="sheet" catchtap="noop">
+      <view class="sheet-head">
+        <text class="sheet-title ellipsis">{{restEditName}}</text>
+        <text class="sheet-action" bindtap="closeRestSheet">完成</text>
+      </view>
+      <text class="sheet-label">组间休息</text>
+      <view class="opts-3">
+        <view
+          wx:for="{{smallRestOpts}}"
+          wx:key="*this"
+          class="opt num {{restEditSmall === item ? 'on' : ''}}"
+          data-s="{{item}}"
+          bindtap="pickSmallRest"
+        >{{item}} 秒</view>
+      </view>
+      <text class="sheet-label rest-label-2">换动作休息</text>
+      <view class="opts-3">
+        <view
+          wx:for="{{bigRestOpts}}"
+          wx:key="*this"
+          class="opt num {{restEditBig === item ? 'on' : ''}}"
+          data-s="{{item}}"
+          bindtap="pickBigRest"
+        >{{item}} 秒</view>
+      </view>
+    </view>
+  </view>
+</view>

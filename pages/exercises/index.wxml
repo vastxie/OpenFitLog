@@ -1,0 +1,56 @@
+<view class="lib" style="{{themeStyle}}">
+  <view class="search">
+    <view class="search-ic i i-search" />
+    <input
+      class="search-input"
+      placeholder="搜索动作"
+      placeholder-class="ph"
+      value="{{keyword}}"
+      confirm-type="search"
+      bindinput="onSearch"
+    />
+    <view wx:if="{{keyword}}" class="search-clear" bindtap="clearSearch">
+      <view class="search-ic i i-close" />
+    </view>
+  </view>
+
+  <view class="body">
+    <!-- 部位；搜索时收起 -->
+    <scroll-view wx:if="{{!keyword}}" scroll-y enhanced show-scrollbar="{{false}}" class="side">
+      <view
+        wx:for="{{categories}}"
+        wx:key="key"
+        class="side-item {{cat === item.key ? 'on' : ''}}"
+        data-cat="{{item.key}}"
+        bindtap="onCat"
+      >{{item.name}}</view>
+    </scroll-view>
+
+    <scroll-view scroll-y class="main" scroll-top="{{scrollTop}}">
+      <view wx:if="{{cat === 'custom' && !keyword}}" class="new tap-fx" bindtap="createCustom" hover-class="pressed" hover-stay-time="80">
+        <view class="ic i i-plus" />
+        <text class="new-text">新建动作</text>
+      </view>
+
+      <view wx:if="{{groups.length === 0}}" class="empty">{{emptyText}}</view>
+
+      <view wx:for="{{groups}}" wx:for-index="gIdx" wx:key="equip">
+        <view class="group-title">{{item.equip}}</view>
+        <view class="grid {{keyword ? 'wide' : ''}}">
+          <view class="tile tap-fx" wx:for="{{item.list}}" wx:for-item="ex" wx:for-index="eIdx" wx:key="id" data-id="{{ex.id}}" bindtap="openDetail" hover-class="pressed" hover-stay-time="80">
+            <view class="poster">
+              <image wx:if="{{ex.posterUrl}}" class="poster-img" src="{{ex.posterUrl}}" mode="aspectFill" lazy-load data-g="{{gIdx}}" data-i="{{eIdx}}" binderror="onPosterErr" />
+              <view wx:else class="poster-part"><view class="part-ic i i-part-{{ex.part}}" /></view>
+              <!-- 只标出已收藏的；收藏在详情页里点 -->
+              <view wx:if="{{ex.isFav}}" class="fav" data-id="{{ex.id}}" catchtap="toggleFav">
+                <view class="fav-ic i i-heart-fill" />
+              </view>
+            </view>
+            <text class="tile-name">{{ex.name}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="tail"></view>
+    </scroll-view>
+  </view>
+</view>

@@ -1,0 +1,182 @@
+.lib {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.search {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  height: 88rpx;
+  margin: 16rpx 32rpx;
+  padding: 0 24rpx;
+  background: var(--fill);
+  border-radius: var(--r-ctl);
+}
+
+.search-ic {
+  width: 36rpx;
+  height: 36rpx;
+  display: block;
+}
+
+.search-input {
+  flex: 1;
+  margin-left: 12rpx;
+  font-size: 28rpx;
+}
+
+.search-clear {
+  padding: 16rpx 0 16rpx 16rpx;
+}
+
+.body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  border-top: 1rpx solid var(--line);
+}
+
+.side {
+  width: 152rpx;
+  height: 100%;
+  flex-shrink: 0;
+  border-right: 1rpx solid var(--line);
+}
+
+.side-item {
+  height: 96rpx;
+  display: flex;
+  align-items: center;
+  padding-left: 32rpx;
+  color: var(--ink-3);
+  transition: color 0.18s ease;
+}
+
+.side-item.on {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0 32rpx 0 24rpx;
+}
+
+.new {
+  display: flex;
+  align-items: center;
+  height: 104rpx;
+  border-bottom: 1rpx solid var(--line);
+}
+
+.new-text {
+  margin-left: 16rpx;
+  font-size: 32rpx;
+}
+
+.group-title {
+  padding: 32rpx 0 16rpx;
+  font-size: 24rpx;
+  color: var(--ink-3);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24rpx 16rpx;
+}
+
+.grid.wide {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.tile {
+  min-width: 0;
+  animation: fadeIn 0.22s ease both;
+}
+
+/* 海报是 16:9 的白底图，裁成方形后人物仍在正中 */
+.poster {
+  position: relative;
+  width: 100%;
+  padding-top: 100%;
+  border-radius: var(--r-ctl);
+  border: 1rpx solid var(--line);
+  overflow: hidden;
+}
+
+.poster-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* 未配置外部图床时，居中显示整数像素的肌肉部位剪影图标 */
+.poster-part {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 48px;
+  height: 48px;
+  transform: translate(-50%, -50%);
+}
+
+.grid.wide .poster-part {
+  width: 36px;
+  height: 36px;
+}
+
+.fav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 12rpx;
+}
+
+.fav-ic {
+  width: 36rpx;
+  height: 36rpx;
+  display: block;
+}
+
+/* 海报始终是白底，压在海报上的收藏图标不跟深浅色走 */
+.poster-img + .fav .i-heart-fill {
+  background-color: #111111;
+}
+
+.tile-name {
+  display: -webkit-box;
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  line-height: 1.5;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.tail {
+  height: 48rpx;
+}
+
+/* 深色模式：白底海报压暗一点，免得一格格发亮 */
+@media (prefers-color-scheme: dark) {
+  .poster {
+    border-color: transparent;
+    background: var(--fill);
+  }
+
+  .poster-img {
+    opacity: 0.88;
+  }
+}
+
+/* 收藏时心形弹一下 */
+.fav .i-heart-fill {
+  animation: pop 0.3s var(--ease-pop) both;
+}

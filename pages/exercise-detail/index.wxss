@@ -1,0 +1,203 @@
+/* 演示视频是 16:9 白底，双层缓存 + 海报遮罩避免切换黑屏闪烁 */
+.stage {
+  position: relative;
+  height: 422rpx;
+  margin: 0 -32rpx;
+  background: #ffffff;
+  overflow: hidden;
+  border-bottom: 1rpx solid var(--line);
+}
+
+.stage-preload {
+  position: absolute;
+  width: 2rpx;
+  height: 2rpx;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.stage-layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #ffffff;
+}
+
+.stage-layer.active {
+  z-index: 2;
+  opacity: 1;
+  transition: opacity 0.16s ease;
+}
+
+.stage-layer.hidden {
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0s linear 0.16s;
+}
+
+.stage-video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: #ffffff;
+}
+
+.stage-cover {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+}
+
+.stage-cover.hide {
+  opacity: 0;
+}
+
+.title-row {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 32rpx;
+}
+
+.title {
+  flex: 1;
+  font-size: 40rpx;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.title-fav {
+  width: 72rpx;
+  height: 72rpx;
+  margin: -8rpx -16rpx 0 0;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.en {
+  display: block;
+  font-size: 24rpx;
+  color: var(--ink-3);
+}
+
+.meta {
+  display: block;
+  margin-top: 8rpx;
+}
+
+/* 演示模型切换，贴在视频右下方 */
+.model {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: -24rpx;
+}
+
+.model-opt {
+  padding: 16rpx 0 16rpx 32rpx;
+  font-size: 24rpx;
+  color: var(--ink-3);
+  transition: color 0.18s ease;
+}
+
+.model-opt.on {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.guide-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.guide-row {
+  display: flex;
+  align-items: flex-start;
+}
+
+.guide-idx {
+  width: 40rpx;
+  flex-shrink: 0;
+  color: var(--ink-3);
+  line-height: 1.7;
+}
+
+.guide-txt {
+  flex: 1;
+  line-height: 1.7;
+}
+
+.none {
+  color: var(--ink-3);
+}
+
+.best {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 16rpx;
+}
+
+.best-val {
+  font-size: 40rpx;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.trend {
+  display: block;
+  width: 100%;
+  height: 280rpx;
+  margin: 8rpx 0 24rpx;
+}
+
+.hist-sum {
+  display: block;
+  padding-bottom: 8rpx;
+}
+
+.hist-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid var(--line);
+}
+
+.hist-date {
+  flex-shrink: 0;
+  color: var(--ink-2);
+}
+
+.hist-sets {
+  margin-left: 32rpx;
+  text-align: right;
+}
+
+.tail {
+  height: 96rpx;
+}
+
+/* 深色模式：白底视频缩进成圆角卡片，不再通栏发亮 */
+@media (prefers-color-scheme: dark) {
+  .stage {
+    margin: 16rpx 0 0;
+    border-radius: var(--r-card);
+    border-bottom: none;
+  }
+}
+
+.title-fav .i-heart-fill {
+  animation: pop 0.3s var(--ease-pop) both;
+}

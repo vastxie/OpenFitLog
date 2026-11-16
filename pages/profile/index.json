@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "身体资料",
+  "navigationBarBackgroundColor": "@navBgGroup",
+  "backgroundColor": "@bgGroup",
+  "usingComponents": {
+    "num-pad": "/components/num-pad/index"
+  }
+}
