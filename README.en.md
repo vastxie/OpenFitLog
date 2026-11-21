@@ -12,7 +12,7 @@ Zero third-party frontend dependencies. Data is stored locally first with zero n
 
 ## Demo Video
 
-[![Watch the 34s OpenFitLog Demo Video](./assets/readme/openfitlog-promo-cover.png)](https://fit-media.lightai.io/promo/openfitlog-promo.mp4)
+https://github.com/user-attachments/assets/338eb490-76bd-4912-a60b-b5579096d6a4
 
 34-second walkthrough covering smart plan generation, one-handed set logging & rest timers, 314 3D exercise demos, annual workout heatmaps, and 7 light/dark themes.
 
