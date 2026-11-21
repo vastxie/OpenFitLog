@@ -15,7 +15,7 @@
 <!-- 创建 GitHub 公开仓库后，可在网页端编辑 README 并将 ./assets/readme/openfitlog-promo.mp4（8.8MB）直接拖入此处，即可替换为与 99AI 相同的 GitHub 原生内嵌视频播放器 -->
 [![点击播放 OpenFitLog 34 秒完整演示视频](./assets/readme/openfitlog-promo-cover.png)](https://fit-media.lightai.io/promo/openfitlog-promo.mp4)
 
-34 秒实机演示，涵盖定制训练计划、单手打勾与休息计时、314 个 3D 动作演示、年度统计热力图及 7 款深浅色主题。[在线高清播放](https://fit-media.lightai.io/promo/openfitlog-promo.mp4) · [下载视频](./assets/readme/openfitlog-promo.mp4)
+34 秒实机演示，涵盖定制训练计划、单手打勾与休息计时、314 个 3D 动作演示、年度统计热力图及 7 款深浅色主题。
 
 ## 核心能力
 
